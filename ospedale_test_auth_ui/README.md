@@ -52,4 +52,4 @@ Lo siguiente lista toda la configuración que se hizo para tener el proyecto cor
 9. Se creó el archivo ***public/js/home.js*** que interactúa con ***resources/views/home.blade.php*** para crear, modificar y eliminar usuarios. Este Javascript se comunica con los controladores para cumplir con las acciones a la base de datos.
 
 
-*NOTA: Estos pasos no se hicieron en el orden que se enumeran, pudieron haber sido con un orden completamente diferente en el desarrollo del aplicativo de prueba.*
+*NOTA: :warning: :warning: :warning: Estos pasos no se hicieron en el orden que se enumeran, pudieron haber sido con un orden completamente diferente en el desarrollo del aplicativo de prueba.* :warning: :warning: :warning:
