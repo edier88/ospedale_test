@@ -1,62 +1,46 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400"></a></p>
+# Prueba aptitudes técnicas Grupo Ospedale
 
-<p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+## Descripción:
+El presente proyecto es una prueba técnica presentada a la empresa Grupo Ospedale.
+Este proyecto se hizo con UI AUTH.
+UI AUTH es un módulo para Laravel que tiene Jquery, Bootstrap, Axios y otras cosas para hacer una página de autorización. También incluye un "Scaffolding" que contiene todos los archivos y configuraciones, controladores, etc. Para crear una página de Login sin tener que hacerla desde cero, los pasos para su instalación se dictan a continuación:
 
-## About Laravel
+### Pre-requisitos 📋
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+Asegúrese de tener composer y laravel instalado en su sistema. 
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+_Las instrucciones de instalación se escribieron teniendo en cuenta un sistema tipo Unix en la maquina donde se va a instalar el aplicativo web._
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+_Si usa Windows, puede que los comandos de instalación no le sirvan al pie de la letra._
 
-## Learning Laravel
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+### Instalación 🔧
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 1500 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+Se describe la instalación, desde cero, de un sistema con AUTH UI. Si en el futuro se requiere. _Si se va a trabajar sobre este proyecto no hay necesidad de seguir estos pasos de instalación, puesto que este proyecto ya tiene AUTH UI_
 
-## Laravel Sponsors
+_Se infiere que ya se ha creado un proyecto Laravel al cual instalarle AUTH UI_
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+```
+$ cd <project_name>
+$ composer require laravel/ui
+$ php artisan ui bootstrap --auth
+$ npm install && npm run dev
+```
+_El último comando es para compilar el scaffolding de Bootstrap. Si no aparecen los directorios "public/css" y "public/js", correr este comando dos veces_
 
-### Premium Partners
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/)**
-- **[OP.GG](https://op.gg)**
+## Configuración 🛠️
 
-## Contributing
+Lo siguiente lista toda la configuración que se hizo para tener el proyecto correcto, se dicen los archivos configurados y las configuraciones que se llevaron a cabo:
+	
+1. Se cambió el valor de la variable de entorno *APP_NAME* de _laravel_ a _Ospedale test_ en el archivo _.env_
+2. Se puso el nombre de la base de datos con la que se trabajará en el proyecto, *ospedale_test*, en el archivo _.env_. El SQL query con el que se creó la base de datos se guarda en el presente directorio bajo el nombre de _DB_queries.sql_
+3. Se modificó las páginas de registro y de login que viene por defecto para poner los campos que uno necesite, en vez de los que vienen por defecto: *resources/views/auth/login.blade.php* y *resources/views/auth/register.blade.php* (se guardan backups de los archivos originales, estos se encuentran en el mismo directorio con extensión _.bk_)
+4. Se modificó el archivo de las rutas *routes/web.php*
+5. Para que el registro guarde los campos que modifiquemos por defecto, se editó el archivo controlador del registro de usuarios: *app/Http/Controllers/Auth/RegisterController.php*
+6. Para que al dar login no pida el sistema el e-mail sino el nombre de usuario se sobreescribió la función *username()* que se hereda desde el Trait *AuthenticatesUsers* en el controlador de login: *app/Http/Controllers/Auth/LoginController.php*
+7. Se crearon los modelos _Eps_, _Rol_ y se editó _User_ para que no apunte a la tabla _users_ sino _tb___usuarios_, lo mismo para los modelos _Eps_ y _Rol_.
+8. Se modificó el archivo *resources/views/home.blade.php* para incluir una tabla en donde se pongan los usuarios
+9. Se creó el archivo *public/js/home.js* que interactúa con *resources/views/home.blade.php* para crear, modificar y eliminar usuarios. Este Javascript se comunica con los controladores para cumplir con las acciones a la base de datos.
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
-
-## Code of Conduct
-
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+*NOTA: Estos pasos no se hicieron en el orden que se enumeran, pudieron haber sido con un orden completamente diferente en el desarrollo del aplicativo de prueba.*
