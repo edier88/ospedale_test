@@ -26,7 +26,7 @@ $ composer require laravel/ui
 $ php artisan ui bootstrap --auth
 $ npm install && npm run dev
 ```
-_El último comando es para compilar el scaffolding de Bootstrap. Si no aparecen los directorios "public/css" y "public/js", correr este comando dos veces_
+_El último comando es para compilar el scaffolding de Bootstrap. Si no aparecen los directorios_ ***public/css*** _y_ ***public/js***_, correr este comando dos veces_
 
 
 ## Configuración 🛠️
