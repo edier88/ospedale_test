@@ -33,7 +33,7 @@ _El último comando es para compilar el scaffolding de Bootstrap. Si no aparecen
 
 Lo siguiente lista toda la configuración que se hizo para tener el proyecto correcto, se dicen los archivos configurados y las configuraciones que se llevaron a cabo:
 	
-1. Se cambió el valor de la variable de entorno *APP_NAME* de _laravel_ a _Ospedale test_ en el archivo _.env_
+1. Se cambió el valor de la variable de entorno `APP_NAME` de `laravel` a `Ospedale test` en el archivo ***.env***
 2. Se puso el nombre de la base de datos con la que se trabajará en el proyecto, *ospedale_test*, en el archivo _.env_. El SQL query con el que se creó la base de datos se guarda en el presente directorio bajo el nombre de _DB_queries.sql_
 3. Se modificó las páginas de registro y de login que viene por defecto para poner los campos que uno necesite, en vez de los que vienen por defecto: *resources/views/auth/login.blade.php* y *resources/views/auth/register.blade.php* (se guardan backups de los archivos originales, estos se encuentran en el mismo directorio con extensión _.bk_)
 4. Se modificó el archivo de las rutas *routes/web.php*
