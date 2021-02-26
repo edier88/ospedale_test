@@ -57,6 +57,19 @@ class HomeController extends Controller
 
     public function createUser(Request $request){
         
+        // Valido los campos enviados por axios
+        $request->validate([
+            "nombre" => "required",
+            "documento" => "required",
+            "password" => "required",
+            "genero" => "required",
+            "fecha_nacimiento" => "required",
+            "telefono" => "required",
+            "eps" => "required",
+            "rol" => "required"
+        ]);
+        
+
         $response = User::create([
             "nombre" => $request->nombre,
             "documento" => $request->documento,
@@ -68,9 +81,7 @@ class HomeController extends Controller
             "rol_id" => $request->rol,
             "create_at_datetime" => date('Y-m-d H:i:s')
         ]);
-        
         return json_encode($response->all());
-        //return json_encode($request->rol);
     }
 
     public function mostrarUsuarios($id = null){
