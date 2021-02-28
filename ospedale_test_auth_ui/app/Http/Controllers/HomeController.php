@@ -8,6 +8,9 @@ use App\Models\User;
 use App\Models\Eps;
 use App\Models\Rol;
 
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Response;
+
 class HomeController extends Controller
 {
     /**
@@ -41,6 +44,31 @@ class HomeController extends Controller
     }
 
     public function updateUser(Request $request){
+
+        // Valido los campos enviados por axios, si esto es incorrecto, se enviará un XHR response de error (422, Unprocessable Entity)
+        /* $request->validate([
+            "id" => "required",
+            "nombre" => "required",
+            "documento" => "required",
+            "password" => "required",
+            "genero" => "required",
+            "fecha_nacimiento" => "required",
+            "telefono" => "required",
+            "eps" => "required",
+            "rol" => "required"
+        ]); */
+
+        $request->validate([
+            "nombre" => ["required",'regex:/^[a-zñÑáéíóúÁÉÍÓÚ]+$/i'],
+            "documento" => ["required",'regex:/^\d{6,12}$/'],
+            "password" => ["required",'regex:/^.{8,}$/'],
+            "genero" => ["required",'regex:/^(M)$|^(F)$/'],
+            "fecha_nacimiento" => ["required",'regex:/^[1-2][0-9]{3}-[0-9]{2}-[0-9]{2}$/'],
+            "telefono" => ["required",'regex:/^\+[0-9]{6,15}$|^[0-9]{6,15}$/'],
+            "eps" => ["required",'regex:/^\d{1,3}$/'],
+            "rol" => ["required",'regex:/^\d{1,3}$/']
+        ]);
+
         $response = User::where('id', $request->id)
                         ->update([
                             "nombre" => $request->nombre,
@@ -57,18 +85,41 @@ class HomeController extends Controller
 
     public function createUser(Request $request){
         
-        // Valido los campos enviados por axios
-        $request->validate([
-            "nombre" => "required",
-            "documento" => "required",
-            "password" => "required",
-            "genero" => "required",
-            "fecha_nacimiento" => "required",
-            "telefono" => "required",
-            "eps" => "required",
-            "rol" => "required"
-        ]);
+        // Valido los campos enviados por axios, si esto es incorrecto, se enviará un XHR response de error (422, Unprocessable Entity)
+        $arrayRequest = [
+            "nombre" => $request->nombre,
+            "documento" => $request->documento,
+            "password" => $request->password,
+            "genero" => $request->genero,
+            "fecha_nacimiento" => $request->fecha_nacimiento,
+            "telefono" => $request->telefono,
+            "eps" => $request->eps,
+            "rol" => $request->rol
+        ];
+
         
+        $arrayValidate = [
+            "nombre" => ["required",'regex:/^[a-zñÑáéíóúÁÉÍÓÚ]+$/i'],
+            "documento" => ["required",'regex:/^\d{6,12}$/', 'unique:tb_usuarios'],
+            "password" => ["required",'regex:/^.{8,}$/'],
+            "genero" => ["required",'regex:/^(M)$|^(F)$/'],
+            "fecha_nacimiento" => ["required",'regex:/^[1-2][0-9]{3}-[0-9]{2}-[0-9]{2}$/'],
+            "telefono" => ["required",'regex:/^\+[0-9]{6,15}$|^[0-9]{6,15}$/'],
+            "eps" => ["required",'regex:/^\d{1,3}$/'],
+            "rol" => ["required",'regex:/^\d{1,3}$/']
+        ];
+
+        // Esta es otra forma de hacer la validacion de campos, se valida y el resultado de la validación se guarda en una variable
+        $response = Validator::make($arrayRequest, $arrayValidate);
+        
+        // De esta forma podemos manipular las respuesta XHR a enviar, con la clase "Response". 
+        //Si no se quiere hacer esto, se puede validar los campos de manera más sencilla como está en el método "updateUser" de esta misma clase
+        if($response->fails()){
+            return Response::json([
+                'response' => false,
+                'errors' => $response->getMessageBag()->toArray()
+            ], 422);
+        }
 
         $response = User::create([
             "nombre" => $request->nombre,
@@ -81,7 +132,9 @@ class HomeController extends Controller
             "rol_id" => $request->rol,
             "create_at_datetime" => date('Y-m-d H:i:s')
         ]);
-        return json_encode($response->all());
+        
+        // De esta forma podemos manipular las respuesta XHR a enviar, con la clase "Response"
+        return Response::json(['success' => true], 200);
     }
 
     public function mostrarUsuarios($id = null){

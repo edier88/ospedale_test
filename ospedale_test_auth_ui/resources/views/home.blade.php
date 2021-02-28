@@ -82,8 +82,8 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <div class="modal-body">
-                <input type="hidden" class="form-control" id="id_edit">
+            <input type="hidden" class="form-control" id="id_edit">
+            <div class="modal-body" id="editModalBody">
                 <div class="form-group">
                     <label for="nombre_edit" class="col-form-label">Nombre:</label>
                     <input type="text" class="form-control" id="nombre_edit">
@@ -93,8 +93,8 @@
                     <input type="text" class="form-control" id="documento_edit">
                 </div>
                 <div class="form-group">
-                    <label for="pass_edit" class="col-form-label">Password:</label>
-                    <input type="password" class="form-control" id="pass_edit">
+                    <label for="password_edit" class="col-form-label">Password:</label>
+                    <input type="password" class="form-control" id="password_edit">
                 </div>
                 <div class="form-group">
                     <label for="genero_edit" class="col-form-label">Genero:</label>
@@ -105,8 +105,8 @@
                     </select>
                 </div>
                 <div class="form-group">
-                    <label for="fechaNacimiento_edit" class="col-form-label">Fecha de Nacimiento:</label>
-                    <input type="text" class="form-control" id="fechaNacimiento_edit">
+                    <label for="fecha_nacimiento_edit" class="col-form-label">Fecha de Nacimiento:</label>
+                    <input type="text" class="form-control" id="fecha_nacimiento_edit">
                 </div>
                 <div class="form-group">
                     <label for="telefono_edit" class="col-form-label">Telefono:</label>
@@ -134,6 +134,9 @@
                         @endforelse
                     </select>
                 </div>
+                <div class="form-group">
+                    <span id="response_edit"></span>
+                </div>
             </div>
             <div class="modal-footer">
                 <button type="button" id="buttonUpdate" class="btn btn-success">Actualizar</button>
@@ -154,7 +157,7 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <div class="modal-body">
+            <div class="modal-body" id="createModalBody">
                 <div class="form-group">
                     <label for="nombre_create" class="col-form-label">Nombre:</label>
                     <input type="text" class="form-control" id="nombre_create">
@@ -164,8 +167,8 @@
                     <input type="text" class="form-control" id="documento_create">
                 </div>
                 <div class="form-group">
-                    <label for="pass_create" class="col-form-label">Password:</label>
-                    <input type="password" class="form-control" id="pass_create">
+                    <label for="password_create" class="col-form-label">Password:</label>
+                    <input type="password" class="form-control" id="password_create">
                 </div>
                 <div class="form-group">
                     <label for="genero_create" class="col-form-label">Genero:</label>
@@ -176,8 +179,8 @@
                     </select>
                 </div>
                 <div class="form-group">
-                    <label for="fechaNacimiento_create" class="col-form-label">Fecha de Nacimiento:</label>
-                    <input type="text" class="form-control" id="fechaNacimiento_create">
+                    <label for="fecha_nacimiento_create" class="col-form-label">Fecha de Nacimiento:</label>
+                    <input type="text" class="form-control" id="fecha_nacimiento_create">
                 </div>
                 <div class="form-group">
                     <label for="telefono_create" class="col-form-label">Telefono:</label>
